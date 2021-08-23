@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Cache-Control" content="no-store, max-age=0">
   <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
   <link href="{{ '/assets/css/styles.css' | relative_url }}?{{ site.time | date:'%Y%m%d-%H%M%S' }}" rel="stylesheet">
 </head>
-<body class="">
-  <div id="wrapper">
-    {{content}}
-  </div>
+<body class="{% if page.bodyClass %}{{ page.bodyClass }}{% else %}page{% endif %}">
+{{content}}
 </body>
 </html>
