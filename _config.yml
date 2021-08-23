@@ -1,6 +1,7 @@
 title: 'Workcation examples of Tailwind CSS'
 theme:
 permalink: pretty
+baseurl: /tailwind-workcation
 
 exclude:
   - README.md
