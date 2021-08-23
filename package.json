@@ -2,7 +2,7 @@
   "private": true,
   "devDependencies": {
     "autoprefixer": "10.x.x",
-    "postcss": "8.x.x",
+    "postcss": "^8.2.10",
     "tailwindcss": "2.x.x",
     "@tailwindcss/typography": "0.x.x"
   }
