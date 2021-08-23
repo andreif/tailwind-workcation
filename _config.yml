@@ -1,0 +1,24 @@
+title: 'Jekyll and Tailwind CSS'
+theme:
+permalink: pretty
+
+exclude:
+  - README.md
+  - Makefile
+  - vendor
+  - node_modules
+  - '*.config.js'
+  - package*.json
+  - .idea
+  - Gemfile*
+  - .github
+  - assets/css/tailwind.css
+
+#plugins:
+#  - jekyll-redirect-from
+
+defaults:
+  - scope:
+      path: ''
+    values:
+      layout: default

@@ -1,0 +1,47 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CSS_OUTPUT: assets/css/styles.css
+  CSS_INPUT: assets/css/tailwind.css
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node_modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+
+      - run: |
+          npm install
+          NODE_ENV=production npx tailwindcss -i $CSS_INPUT -o $CSS_OUTPUT --minify
+
+      - run: |
+          echo "${{ secrets.DEPLOY_KEY }}" > key
+          [ -s key ] && chmod 600 key || exit 1
+          mkdir -p ~/.ssh
+          mv key ~/.ssh/id_rsa
+
+      - run: |
+          git remote set-url origin git@github.com:${{ github.repository }}.git
+          git config --global user.name 'Github Actions'
+          git config --global user.email 'github.actions@users.noreply.github.com'
+          git add -f $CSS_OUTPUT
+          git commit -m "Deploy"
+          git push --force origin main:gh-pages
